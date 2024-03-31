@@ -46,6 +46,8 @@
 
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
+    document.addEventListener("touchstart", touchStartHandler, false);
+    document.addEventListener("touchend", touchEndHandler, false);
 
     function keyDownHandler(e) {
         if (e.key === "Right" || e.key === "ArrowRight") {
@@ -61,6 +63,22 @@
         } else if (e.key === "Left" || e.key === "ArrowLeft") {
             leftPressed = false;
         }
+    }
+
+    function touchStartHandler(e) {
+        if (e.touches) {
+            var touchX = e.touches[0].clientX;
+            if (touchX > canvas.width / 2) {
+                rightPressed = true;
+            } else {
+                leftPressed = true;
+            }
+        }
+    }
+
+    function touchEndHandler(e) {
+        rightPressed = false;
+        leftPressed = false;
     }
 
     function collisionDetection() {
